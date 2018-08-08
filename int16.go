@@ -52,6 +52,14 @@ func (opt Int16) UnwrapOrElse(fn func() int16) int16 {
 	return fn()
 }
 
+// UnwrapOrDefault returns the contained value or the default.
+func (opt Int16) UnwrapOrDefault() int16 {
+	if opt.getHasValue() {
+		return opt.getValue()
+	}
+	return 0
+}
+
 // UnwrapOrPanic returns the contained value or panics.
 func (opt Int16) UnwrapOrPanic() int16 {
 	if opt.getHasValue() {

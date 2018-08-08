@@ -53,6 +53,14 @@ func (opt Time) UnwrapOrElse(fn func() time.Time) time.Time {
 	return fn()
 }
 
+// UnwrapOrDefault returns the contained value or the default.
+func (opt Time) UnwrapOrDefault() time.Time {
+	if opt.getHasValue() {
+		return opt.getValue()
+	}
+	return time.Time{}
+}
+
 // UnwrapOrPanic returns the contained value or panics.
 func (opt Time) UnwrapOrPanic() time.Time {
 	if opt.getHasValue() {

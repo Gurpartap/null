@@ -52,6 +52,14 @@ func (opt JSONB) UnwrapOrElse(fn func() []byte) []byte {
 	return fn()
 }
 
+// UnwrapOrDefault returns the contained value or the default.
+func (opt JSONB) UnwrapOrDefault() []byte {
+	if opt.getHasValue() {
+		return opt.getValue()
+	}
+	return nil
+}
+
 // UnwrapOrPanic returns the contained value or panics.
 func (opt JSONB) UnwrapOrPanic() []byte {
 	if opt.getHasValue() {

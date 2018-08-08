@@ -52,6 +52,14 @@ func (opt Bytes) UnwrapOrElse(fn func() []byte) []byte {
 	return fn()
 }
 
+// UnwrapOrDefault returns the contained value or the default.
+func (opt Bytes) UnwrapOrDefault() []byte {
+	if opt.getHasValue() {
+		return opt.getValue()
+	}
+	return nil
+}
+
 // UnwrapOrPanic returns the contained value or panics.
 func (opt Bytes) UnwrapOrPanic() []byte {
 	if opt.getHasValue() {

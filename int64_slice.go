@@ -56,6 +56,14 @@ func (opt Int64Slice) UnwrapOrElse(fn func() []int64) []int64 {
 	return fn()
 }
 
+// UnwrapOrDefault returns the contained value or the default.
+func (opt Int64Slice) UnwrapOrDefault() []int64 {
+	if opt.getHasValue() {
+		return opt.getValue()
+	}
+	return nil
+}
+
 // UnwrapOrPanic returns the contained value or panics.
 func (opt Int64Slice) UnwrapOrPanic() []int64 {
 	if opt.getHasValue() {

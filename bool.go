@@ -52,6 +52,14 @@ func (opt Bool) UnwrapOrElse(fn func() bool) bool {
 	return fn()
 }
 
+// UnwrapOrDefault returns the contained value or the default.
+func (opt Bool) UnwrapOrDefault() bool {
+	if opt.getHasValue() {
+		return opt.getValue()
+	}
+	return false
+}
+
 // UnwrapOrPanic returns the contained value or panics.
 func (opt Bool) UnwrapOrPanic() bool {
 	if opt.getHasValue() {

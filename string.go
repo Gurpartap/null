@@ -52,6 +52,14 @@ func (opt String) UnwrapOrElse(fn func() string) string {
 	return fn()
 }
 
+// UnwrapOrDefault returns the contained value or the default.
+func (opt String) UnwrapOrDefault() string {
+	if opt.getHasValue() {
+		return opt.getValue()
+	}
+	return ""
+}
+
 // UnwrapOrPanic returns the contained value or panics.
 func (opt String) UnwrapOrPanic() string {
 	if opt.getHasValue() {

@@ -5,12 +5,12 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"fmt"
-
 	"strconv"
 	"strings"
 
-	"github.com/Gurpartap/null/internal"
 	"github.com/pkg/errors"
+
+	"github.com/Gurpartap/null/internal"
 )
 
 // Int64Slice is a sql scanner interface for using []int64 as postgres nullable arrays.
@@ -123,12 +123,12 @@ func (opt *Int64Slice) Scan(src interface{}) error {
 	var value string
 	err := internal.ConvertAssign(&value, src)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	slice, err := internal.StringToInt64Slice(value)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	opt.SetValue(slice)

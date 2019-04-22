@@ -7,8 +7,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Gurpartap/null/internal"
 	"github.com/pkg/errors"
+
+	"github.com/Gurpartap/null/internal"
 )
 
 type Time struct {
@@ -120,7 +121,7 @@ func (opt *Time) Scan(src interface{}) error {
 	var value time.Time
 	err := internal.ConvertAssign(&value, src)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 	opt.SetValue(value)
 

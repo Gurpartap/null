@@ -49,7 +49,7 @@ func (v *JSONB) Scan(src interface{}) error {
 	var value []byte
 	err := internal.ConvertAssign(&value, src)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	*v = append((*v)[0:0], value...)

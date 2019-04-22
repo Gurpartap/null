@@ -6,8 +6,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Gurpartap/null/internal"
 	"github.com/pkg/errors"
+
+	"github.com/Gurpartap/null/internal"
 )
 
 type Float64 struct {
@@ -119,7 +120,7 @@ func (opt *Float64) Scan(src interface{}) error {
 	var value float64
 	err := internal.ConvertAssign(&value, src)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 	opt.SetValue(value)
 

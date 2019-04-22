@@ -6,8 +6,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Gurpartap/null/internal"
 	"github.com/pkg/errors"
+
+	"github.com/Gurpartap/null/internal"
 )
 
 type String struct {
@@ -127,7 +128,7 @@ func (opt *String) Scan(src interface{}) error {
 	var value string
 	err := internal.ConvertAssign(&value, src)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 	opt.SetValue(value)
 

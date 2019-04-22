@@ -6,8 +6,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Gurpartap/null/internal"
 	"github.com/pkg/errors"
+
+	"github.com/Gurpartap/null/internal"
 )
 
 type Bool struct {
@@ -119,7 +120,7 @@ func (opt *Bool) Scan(src interface{}) error {
 	var value bool
 	err := internal.ConvertAssign(&value, src)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 	opt.SetValue(value)
 

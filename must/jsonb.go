@@ -18,7 +18,7 @@ func (v JSONB) MarshalJSON() ([]byte, error) {
 		return []byte("{}"), nil
 	}
 
-	return json.Marshal(v)
+	return v, nil
 }
 
 // UnmarshalJSON implements the json Unmarshaler interface.

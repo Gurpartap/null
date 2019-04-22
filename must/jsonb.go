@@ -3,11 +3,41 @@ package must
 import (
 	"bytes"
 	"database/sql/driver"
+	"encoding/json"
+
+	"github.com/pkg/errors"
 
 	"github.com/Gurpartap/null/internal"
 )
 
 type JSONB []byte
+
+// MarshalJSON implements the json Marshaler interface.
+func (v JSONB) MarshalJSON() ([]byte, error) {
+	if bytes.Equal(v, []byte{}) || bytes.Equal(v, []byte("null")) {
+		return []byte("{}"), nil
+	}
+
+	return json.Marshal(v)
+}
+
+// UnmarshalJSON implements the json Unmarshaler interface.
+func (v *JSONB) UnmarshalJSON(data []byte) error {
+	if data == nil || bytes.Equal(data, []byte("null")) {
+		*v = []byte{}
+		return nil
+	}
+
+	var value []byte
+	err := json.Unmarshal(data, &value)
+	if err != nil {
+		return errors.WithStack(err)
+	}
+
+	*v = append((*v)[0:0], value...)
+
+	return nil
+}
 
 // Scan implements the sql Scanner interface.
 func (v *JSONB) Scan(src interface{}) error {

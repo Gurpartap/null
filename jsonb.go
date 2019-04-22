@@ -94,7 +94,7 @@ func (opt JSONB) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements the json Unmarshaler interface.
 func (opt *JSONB) UnmarshalJSON(data []byte) error {
-	if bytes.Equal(data, []byte("null")) || data == nil {
+	if data == nil || bytes.Equal(data, []byte("null")) {
 		opt.value, opt.hasValue = nil, false
 		return nil
 	}
